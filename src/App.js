@@ -10,6 +10,7 @@ import BranchView from './views/branch'
 import PropertyView from './views/property'
 import ReportView from './views/report';
 import MatchView from './views/match';
+import Lease from './pages/lease/lease'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/property-view" element={<PropertyView/>}/>
         <Route path="/property-report/" element={<ReportView/>}/>
         <Route path="/propertymatch/" element={<MatchView/>}/>
+        <Route path="/lease/:propertyno" element={<Lease />}/>
         </Routes>
       </Router>
     </>

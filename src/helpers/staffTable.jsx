@@ -7,7 +7,7 @@ function StaffTable() {
   
     useEffect(() => {
       axios
-        .get("http://127.0.0.1:8000/api/stafflisting/B00001/")
+        .get("http://127.0.0.1:8000/api/stafflisting/B00004/")
         .then((response) => {
             // console.log(`response${response.data.staff}`);
             setStaffList(response.data.staff);

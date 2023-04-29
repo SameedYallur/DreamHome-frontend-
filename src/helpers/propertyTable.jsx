@@ -69,7 +69,6 @@ function PropertyByBranchTable({ branchNo }) {
                         <th>Rent Price</th>
                         <th>Address</th>
                         <th>Rooms</th>
-                        <th>Matches</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -82,7 +81,6 @@ function PropertyByBranchTable({ branchNo }) {
                                 <td>{property.rent}</td>
                                 <td style={{ maxWidth: '200px', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", wordWrap: "break-word" }}>{property.address}</td>
                                 <td>{property.rooms}</td>
-                                <td>{propertyMatchCounts[property.propertyno]}</td>
                                 <td>
                                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Link to={`/report/${property.propertyno}`}>

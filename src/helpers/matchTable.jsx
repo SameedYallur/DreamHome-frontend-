@@ -25,7 +25,7 @@ function MatchTable({ propertyNo }) {
 
   return (
     <>
-      <h2>Matches for {matchData.property.propertyno}</h2>
+      {/* <h2>Matches for {matchData.property.propertyno}</h2> */}
       <Table striped bordered hover variant="light">
         <thead>
           <tr>

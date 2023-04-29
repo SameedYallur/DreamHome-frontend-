@@ -37,25 +37,6 @@ function Match_textfield({ propertyNo }) {
               <p>{matchData.property.rent}</p>
             </div>
           </div>
-          <div className="row mt-4">
-            <div className="col shadow-sm m-2" style={{ backgroundColor: '#f8f9fa' }}>
-              <h4>Client No.</h4>
-              <p>{matchData.client[0].clientno}</p>
-            </div>
-            <div className="col shadow-sm m-2" style={{ backgroundColor: '#f8f9fa' }}>
-              <h4>First Name</h4>
-              <p>{matchData.client[0].fname}</p>
-            </div>
-
-            <div className="col shadow-sm m-2" style={{ backgroundColor: '#f8f9fa' }}>
-              <h4>Last Name</h4>
-              <p>{matchData.client[0].lname}</p>
-            </div>
-            <div className="col shadow-sm m-2" style={{ backgroundColor: '#f8f9fa' }}>
-              <h4>Registration Date</h4>
-              <p>{matchData.client[0].regdate}</p>
-            </div>
-          </div>
         </div>
       )}
     </>

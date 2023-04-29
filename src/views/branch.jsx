@@ -10,15 +10,13 @@ function BranchView() {
     <>
       {/* <Container> */}
       <Navbar/>
-        <Row>
-          <Col sm={3}>
-            <Sidebar style = {{paddingRight: 0,MarginRight: 0}} />
-          </Col>
-          <Col sm={9}>
-            {/* <Display_fields/> */}
-            <Table style = {{paddingLeft: 0,MarginLeft: 0}} />
-          </Col>
-        </Row>
+      <div className="d-flex">
+        <Sidebar />
+        <div className="flex-fill p-2 mx-3 my-4">
+          <h1 className="text-center">Branches</h1>
+          <Table />
+        </div>
+      </div>
       {/* </Container> */}
     </>
   );

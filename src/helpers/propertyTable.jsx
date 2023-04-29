@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 function PropertyByBranchTable({ branchNo }) {
+
     const [branchData, setBranchData] = useState(null);
+    const [propertyMatchCounts, setPropertyMatchCounts] = useState({});
 
     useEffect(() => {
         axios
@@ -19,6 +24,20 @@ function PropertyByBranchTable({ branchNo }) {
                 console.log(error);
             });
     }, [branchNo]);
+
+    useEffect(() => {
+        const fetchPropertyMatchCounts = async () => {
+            const counts = {};
+            for (const property of branchData.property) {
+                const response = await axios.get(`http://127.0.0.1:8000/api/propertymatch/${property.propertyno}`);
+                counts[property.propertyno] = response.data.length;
+            }
+            setPropertyMatchCounts(counts);
+        };
+        if (branchData) {
+            fetchPropertyMatchCounts();
+        }
+    }, [branchData]);
 
     const handleDelete = (propertyId) => {
         axios
@@ -38,6 +57,7 @@ function PropertyByBranchTable({ branchNo }) {
     if (!branchData) {
         return <div>Loading...</div>;
     }
+
     return (
         <>
             <h2>{branchData.branch_name}</h2>
@@ -49,6 +69,7 @@ function PropertyByBranchTable({ branchNo }) {
                         <th>Rent Price</th>
                         <th>Address</th>
                         <th>Rooms</th>
+                        <th>Matches</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -59,27 +80,31 @@ function PropertyByBranchTable({ branchNo }) {
                                 <td>{property.propertyno}</td>
                                 <td>{property.proptype}</td>
                                 <td>{property.rent}</td>
-                                <td>{property.address}</td>
+                                <td style={{ maxWidth: '200px', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", wordWrap: "break-word" }}>{property.address}</td>
                                 <td>{property.rooms}</td>
+                                <td>{propertyMatchCounts[property.propertyno]}</td>
                                 <td>
-                                    <Link to={`/property/${property.propertyno}`}>
-                                        <span>A</span>
-                                    </Link>{" "}
-
-                                    <Link> {" "}
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                    <Link to={`/report/${property.propertyno}`}>
+                                        <FontAwesomeIcon icon={faComment} style={{ color: "#000000", }} />
+                                    </Link>{"   "}
+                                    <Link>
                                         <button onClick={() => handleDelete(property.propertyno)} style={{ border: "none" }} >
                                             <FontAwesomeIcon icon={faTrash} />
-                                        </button>{" "}
+                                        </button>
+                                    </Link>{" "}{" "}
+                                    <Link to={`/property-report/${property.propertyno}`}style={{ marginRight: '53px' }}>
+                                        <FontAwesomeIcon icon={faFile} style={{ color: "#000000", }} />
                                     </Link>{" "}
-                                    <Link to={`/property/${property.propertyno}`}>
-                                        <span>C</span>
-                                    </Link>{" "}
+
+                                    <Link to={`/propertymatch/${property.propertyno}`}>
+                                        <span>{propertyMatchCounts[property.propertyno]} matches</span>
+                                    </Link>  
                                     <Link to={`/lease/${property.propertyno}`}>
-                                        <span>Lease</span>
-                                    </Link>{" "}
-                                    <Link to={`/property/${property.propertyno}`}>
-                                        <span>E</span>
+                                        <Button variant="outline-info" size = "sm">Lease</Button>
                                     </Link>
+                                    </div>
+                                    
                                 </td>
                             </tr>
                         ))}

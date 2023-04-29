@@ -35,9 +35,9 @@ Sidebar
 <NavLink exact to="/property-view" activeClassName="activeClicked">
 <CDBSidebarMenuItem icon="user">Property</CDBSidebarMenuItem>
 </NavLink>
-<NavLink exact to="/property-report" activeClassName="activeClicked">
+{/* <NavLink exact to="/property-report" activeClassName="activeClicked">
 <CDBSidebarMenuItem icon="fa fa-file">Report</CDBSidebarMenuItem>
-</NavLink>
+</NavLink> */}
 <NavLink exact to="/property-view" activeClassName="activeClicked">
 <CDBSidebarMenuItem icon="fa fa-file-alt">Leases</CDBSidebarMenuItem>
 </NavLink>

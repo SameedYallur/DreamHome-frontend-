@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Table } from 'react-bootstrap';
 import axios from "axios";
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function MatchTable({ propertyNo }) {
   const [matchData, setMatchData] = useState(null);
@@ -30,6 +33,7 @@ function MatchTable({ propertyNo }) {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Registration Date</th>
+            <th>Mail Client</th>
           </tr>
         </thead>
         <tbody>
@@ -39,6 +43,10 @@ function MatchTable({ propertyNo }) {
               <td>{client.fname}</td>
               <td>{client.lname}</td>
               <td>{client.regdate}</td>
+              <td><Link>
+                <FontAwesomeIcon icon={faEnvelope}style={{ color: "#C4C4C4", }} />
+              </Link>{" "}
+              </td>
             </tr>
           ))}
         </tbody>

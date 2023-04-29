@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-function Property_textfield() {
+function Property_textfield({propertyNo}) {
   const [propertyData, setPropertyData] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/propertyreportlisting/P00001/')
+    fetch(`http://127.0.0.1:8000/api/propertyreportlisting/${propertyNo}/`)
       .then(response => response.json())
       .then(data => setPropertyData(data));
   }, []);

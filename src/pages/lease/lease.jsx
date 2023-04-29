@@ -9,8 +9,6 @@ import { useParams } from 'react-router-dom';
 
 function Lease() {
   const { propertyno } = useParams();
-  console.log({propertyno})
-  console.log("____________________________________________________________________________________________")
   return (
     <>
       <Navbar />

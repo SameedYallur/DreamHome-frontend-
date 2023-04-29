@@ -4,11 +4,14 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Navbar from "../../components/Navbar.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
+import { useState } from "react";
 
-function privateOwner() {
+function PrivateOwner() {
+  const [selectedBranch, setSelectedBranch] = useState(''); // initialize selectedBranch state variable
+
   return (
     <>
-      <Navbar />
+      <Navbar selectedBranch={selectedBranch} />
       <div className="formBranchContainer">
         <Sidebar />
         <div className="formBranchContainer2">
@@ -78,4 +81,4 @@ function privateOwner() {
   );
 }
 
-export default privateOwner;
+export default PrivateOwner;

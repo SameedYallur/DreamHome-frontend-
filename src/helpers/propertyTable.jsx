@@ -1,20 +1,22 @@
-import { useState, useEffect } from "react";
+import { useContext,useState, useEffect } from "react";
 import { Table } from 'react-bootstrap';
 import axios from "axios";
+import { BranchContext } from '../context/branch_ctx';
 
 function PropertyByBranchTable({ branchNo }) {
 const [branchData, setBranchData] = useState(null);
+const { selectedBranch} = useContext(BranchContext) ;
 
 useEffect(() => {
 axios
-.get("http://127.0.0.1:8000/api/propertieslisting/B00001/")
+.get(`http://127.0.0.1:8000/api/propertieslisting/${selectedBranch}/`)
 .then((response) => {
 setBranchData(response.data);
 })
 .catch((error) => {
 console.log(error);
 });
-}, [branchNo]);
+}, [selectedBranch]);
 
 if (!branchData) {
 return <div>Loading...</div>;

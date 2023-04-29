@@ -9,10 +9,13 @@ import StaffView from './views/staff'
 import BranchView from './views/branch'
 import PropertyView from './views/property'
 
+import { BranchProvider } from './context/branch_ctx';
+
 
 function App() {
   return (
     <>
+        <BranchProvider>
       <Router>
         <Routes>
         <Route path="/home" element={<Home />}/>
@@ -26,6 +29,7 @@ function App() {
         <Route path="/property-view" element={<PropertyView/>}/>
         </Routes>
       </Router>
+      </BranchProvider>
     </>
   );
 }

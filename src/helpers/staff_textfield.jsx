@@ -4,11 +4,11 @@ function Staff_textfield() {
   const [propertyData, setPropertyData] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/propertieslisting/B00001/')
+    fetch('http://127.0.0.1:8000/api/stafflisting/B00001/')
       .then(response => response.json())
-      .then(data => setPropertyData(data));
+      .then(data => setPropertyData(data),
+      );
   }, []);
-  
   return (
     <>
       {propertyData && (
@@ -34,7 +34,7 @@ function Staff_textfield() {
 
             <div className="col shadow-sm m-2 " style={{ backgroundColor: '#f8f9fa' }}>
               <h4>No. of employees </h4>
-              <p>{propertyData.property.length}</p>
+              <p>{propertyData.length}</p>
             </div>
           </div>
         </div>

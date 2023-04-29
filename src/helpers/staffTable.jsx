@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState } from "react";
 import { Table } from 'react-bootstrap';
 import axios from "axios";
+import { BranchContext } from '../context/branch_ctx';
 
 function StaffTable() {
+  const { selectedBranch} = useContext(BranchContext) ;
     const [staffList, setStaffList] = useState([]);
   
     useEffect(() => {
-      axios
-        .get("http://127.0.0.1:8000/api/stafflisting/B00001/")
-        .then((response) => {
-            // console.log(`response${response.data.staff}`);
+      if (selectedBranch) {
+        axios
+          .get(`http://127.0.0.1:8000/api/stafflisting/${selectedBranch}/`)
+          .then((response) => {
             setStaffList(response.data.staff);
-            console.log(`staffarray${staffList}`);
           })
-        .catch((error) => console.log(error));
-        // console.log(staffList);
-    }, []);
+          .catch((error) => console.log(error));
+      }
+    }, [selectedBranch]);
   
     return (
       <>

@@ -1,4 +1,5 @@
 import React from 'react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 CDBSidebar,
 CDBSidebarContent,
@@ -33,6 +34,15 @@ Sidebar
 </NavLink>
 <NavLink exact to="/property-view" activeClassName="activeClicked">
 <CDBSidebarMenuItem icon="user">Property</CDBSidebarMenuItem>
+</NavLink>
+<NavLink exact to="/property-report" activeClassName="activeClicked">
+<CDBSidebarMenuItem icon="fa fa-file">Report</CDBSidebarMenuItem>
+</NavLink>
+<NavLink exact to="/property-view" activeClassName="activeClicked">
+<CDBSidebarMenuItem icon="fa fa-file-alt">Leases</CDBSidebarMenuItem>
+</NavLink>
+<NavLink exact to="/propertymatch   " activeClassName="activeClicked">
+<CDBSidebarMenuItem icon="fa fa-handshake">Matching</CDBSidebarMenuItem>
 </NavLink>
 </CDBSidebarMenu>
 </CDBSidebarContent>

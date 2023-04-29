@@ -8,6 +8,7 @@ import PrivateOwner from './pages/privateOwner/privateOwner';
 import StaffView from './views/staff'
 import BranchView from './views/branch'
 import PropertyView from './views/property'
+import Lease from './pages/lease/lease'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/staff-view" element={<StaffView/>}/>
         <Route path="/branch-view" element={<BranchView/>}/>
         <Route path="/property-view" element={<PropertyView/>}/>
+        <Route path="/lease/:propertyno" element={<Lease />}/>
         </Routes>
       </Router>
     </>

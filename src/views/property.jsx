@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Table from '../helpers/propertyTable';
+import Display_fields from "../helpers/property_textfield"
+
 // import Display_fields from "../helpers/staff_textfield"
 
 function PropertyView() {
@@ -10,15 +12,14 @@ function PropertyView() {
     <>
       {/* <Container> */}
       <Navbar/>
-        <Row>
-          <Col sm={3}>
-            <Sidebar style = {{paddingRight: 0,MarginRight: 0}} />
-          </Col>
-          <Col sm={9}>
-            {/* <Display_fields/> */}
-            <Table style = {{paddingLeft: 0,MarginLeft: 0}} />
-          </Col>
-        </Row>
+      <div className="d-flex">
+        <Sidebar />
+        <div className="flex-fill p-2 mx-3 my-4">
+          <h1 className="text-center">Property Listing</h1>
+          <Display_fields />
+          <Table />
+        </div>
+      </div>
       {/* </Container> */}
     </>
   );

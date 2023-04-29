@@ -13,10 +13,13 @@ import MatchView from './views/match';
 import Lease from './pages/lease/lease'
 import ReportForm from './pages/Report/viewReport';
 
+import { BranchProvider } from './context/branch_ctx';
+
 
 function App() {
   return (
     <>
+        <BranchProvider>
       <Router>
         <Routes>
         <Route path="/home" element={<Home />}/>
@@ -34,6 +37,7 @@ function App() {
         <Route path="/report/:propertyno" element={<ReportForm/>}/>
         </Routes>
       </Router>
+      </BranchProvider>
     </>
   );
 }

@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { Table, Button } from 'react-bootstrap';
+import { useContext,useState, useEffect } from "react";
+import { Table } from 'react-bootstrap';
 import axios from "axios";
+import { BranchContext } from '../context/branch_ctx';
 import { Link } from "react-router-dom";
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
@@ -12,18 +13,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function PropertyByBranchTable({ branchNo }) {
 
     const [branchData, setBranchData] = useState(null);
+    const { selectedBranch} = useContext(BranchContext) ;
     const [propertyMatchCounts, setPropertyMatchCounts] = useState({});
 
-    useEffect(() => {
-        axios
-            .get(`http://127.0.0.1:8000/api/propertieslisting/B00004/`)
-            .then((response) => {
-                setBranchData(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [branchNo]);
+useEffect(() => {
+axios
+.get(`http://127.0.0.1:8000/api/propertieslisting/${selectedBranch}/`)
+.then((response) => {
+setBranchData(response.data);
+})
+.catch((error) => {
+console.log(error);
+});
+}, [selectedBranch]);
 
     useEffect(() => {
         const fetchPropertyMatchCounts = async () => {

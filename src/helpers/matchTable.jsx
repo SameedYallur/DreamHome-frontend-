@@ -1,0 +1,50 @@
+import { useState, useEffect } from "react";
+import { Table } from 'react-bootstrap';
+import axios from "axios";
+
+function MatchTable({ propertyNo }) {
+  const [matchData, setMatchData] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/api/propertymatch/${propertyNo}/`)
+      .then((response) => {
+        setMatchData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [propertyNo]);
+
+  if (!matchData) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <h2>Matches for {matchData.property.propertyno}</h2>
+      <Table striped bordered hover variant="light">
+        <thead>
+          <tr>
+            <th>Client Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Registration Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {matchData.client && matchData.client.map((client) => (
+            <tr key={client.clientno}>
+              <td>{client.clientno}</td>
+              <td>{client.fname}</td>
+              <td>{client.lname}</td>
+              <td>{client.regdate}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </>
+  );
+}
+
+export default MatchTable;

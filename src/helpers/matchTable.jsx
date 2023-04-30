@@ -39,7 +39,10 @@ function MatchTable({ propertyNo }) {
         <tbody>
           {matchData.client && matchData.client.map((client) => (
             <tr key={client.clientno}>
-              <td>{client.clientno}</td>
+              <td>
+                  <Link to={`/client/${client.clientno}`}>
+                  {client.clientno}
+                  </Link></td>
               <td>{client.fname}</td>
               <td>{client.lname}</td>
               <td>{client.regdate}</td>

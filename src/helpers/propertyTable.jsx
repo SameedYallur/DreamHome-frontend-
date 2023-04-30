@@ -1,5 +1,5 @@
-import { useContext,useState, useEffect } from "react";
-import { Table } from 'react-bootstrap';
+import { useContext, useState, useEffect } from "react";
+import { Table, Button } from 'react-bootstrap';
 import axios from "axios";
 import { BranchContext } from '../context/branch_ctx';
 import { Link } from "react-router-dom";
@@ -13,19 +13,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function PropertyByBranchTable({ branchNo }) {
 
     const [branchData, setBranchData] = useState(null);
-    const { selectedBranch} = useContext(BranchContext) ;
+    const { selectedBranch } = useContext(BranchContext);
     const [propertyMatchCounts, setPropertyMatchCounts] = useState({});
 
-useEffect(() => {
-axios
-.get(`http://127.0.0.1:8000/api/propertieslisting/${selectedBranch}/`)
-.then((response) => {
-setBranchData(response.data);
-})
-.catch((error) => {
-console.log(error);
-});
-}, [selectedBranch]);
+    useEffect(() => {
+        axios
+            .get(`http://127.0.0.1:8000/api/propertieslisting/${selectedBranch}/`)
+            .then((response) => {
+                setBranchData(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [selectedBranch]);
 
     useEffect(() => {
         const fetchPropertyMatchCounts = async () => {
@@ -78,33 +78,37 @@ console.log(error);
                     {branchData.property &&
                         branchData.property.map((property) => (
                             <tr key={property.id}>
-                                <td>{property.propertyno}</td>
+                                <td>
+                                    <Link to={`/propertyForRent/${property.propertyno}`}>
+                                        {property.propertyno}
+                                    </Link>
+                                </td>
                                 <td>{property.proptype}</td>
                                 <td>{property.rent}</td>
                                 <td style={{ maxWidth: '200px', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", wordWrap: "break-word" }}>{property.address}</td>
                                 <td>{property.rooms}</td>
                                 <td>
                                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <Link to={`/report/${property.propertyno}`}>
-                                        <FontAwesomeIcon icon={faComment} style={{ color: "#000000", }} />
-                                    </Link>{"   "}
-                                    <Link>
-                                        <button onClick={() => handleDelete(property.propertyno)} style={{ border: "none" }} >
-                                            <FontAwesomeIcon icon={faTrash} />
-                                        </button>
-                                    </Link>{" "}{" "}
-                                    <Link to={`/property-report/${property.propertyno}`}style={{ marginRight: '53px' }}>
-                                        <FontAwesomeIcon icon={faFile} style={{ color: "#000000", }} />
-                                    </Link>{" "}
+                                        <Link to={`/report/${property.propertyno}`}>
+                                            <FontAwesomeIcon icon={faComment} style={{ color: "#000000", }} />
+                                        </Link>{"   "}
+                                        <Link>
+                                            <button onClick={() => handleDelete(property.propertyno)} style={{ border: "none" }} >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </Link>{" "}{" "}
+                                        <Link to={`/property-report/${property.propertyno}`} style={{ marginRight: '53px' }}>
+                                            <FontAwesomeIcon icon={faFile} style={{ color: "#000000", }} />
+                                        </Link>{" "}
 
-                                    <Link to={`/propertymatch/${property.propertyno}`}>
-                                        <span>{propertyMatchCounts[property.propertyno]} matches</span>
-                                    </Link>  
-                                    <Link to={`/lease/${property.propertyno}`}>
-                                        <Button variant="outline-info" size = "sm">Lease</Button>
-                                    </Link>
+                                        <Link to={`/propertymatch/${property.propertyno}`}>
+                                            <span>{propertyMatchCounts[property.propertyno]} matches</span>
+                                        </Link>
+                                        <Link to={`/lease/${property.propertyno}`}>
+                                            <Button variant="outline-info" size="sm">Lease</Button>
+                                        </Link>
                                     </div>
-                                    
+
                                 </td>
                             </tr>
                         ))}

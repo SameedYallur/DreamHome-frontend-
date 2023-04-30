@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Table } from 'react-bootstrap';
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 function ReportTable({ propertyNo }) {
   const [reportData, setReportData] = useState(null);
@@ -36,7 +38,11 @@ function ReportTable({ propertyNo }) {
           {reportData.report && reportData.report.map((report) => (
             <tr key={`${report.clientno}_${report.view_date}`}>
               <td>{report.clientName}</td>
-              <td>{report.clientno}</td>
+              <td>
+                  <Link to={`/client/${report.clientno}`}>
+                  {report.clientno}
+                  </Link>
+                </td>
               <td>{report.view_date}</td>
               <td>{report.comment}</td>
             </tr>

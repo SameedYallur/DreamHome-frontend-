@@ -2,6 +2,8 @@ import {useContext, useEffect, useState } from "react";
 import { Table } from 'react-bootstrap';
 import axios from "axios";
 import { BranchContext } from '../context/branch_ctx';
+import { Link } from "react-router-dom";
+
 
 function StaffTable() {
   const { selectedBranch} = useContext(BranchContext) ;
@@ -31,7 +33,11 @@ function StaffTable() {
           <tbody>
           {Array.isArray(staffList) && staffList.map((staff) => (
               <tr key={staff.staff_no}>
-                <td>{staff.staff_no}</td>
+                <td>
+                  <Link to={`/staff/${staff.staff_no}`}>
+                  {staff.staff_no}
+                  </Link>
+                  </td>
                 <td>{staff.fname} {staff.lname}</td>
                 <td>{staff.pos}</td>
               </tr>

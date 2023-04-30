@@ -7,52 +7,13 @@ import Navbar from "../../components/Navbar.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
 import axios from "axios";
 import cors from "cors";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { BranchContext } from '../../context/branch_ctx';
-import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
-
-function Staff() {
+function Staff2() {
 
   const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
   console.log(`staff-branch=>${selectedBranch}`)
-
-  //
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedStaff, setSelectedStaff] = useState([]);
-  const [stf, setstf] = useState([]);
-
-
-  const handleSearch = async (query) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`http://127.0.0.1:8000/api/staff/${selectedBranch}/search?q=${query}`);
-      const data = await response.json();
-      setstf(data);
-    } catch (error) {
-      console.error(error);
-    }
-    setIsLoading(false);
-  };
-
-  const handleSelect = (selected) => {
-    if(selected && selected.length > 0 && selected[0].staff_no) {
-    const selectedStaffNo = selected[0].staff_no;
-    setSelectedStaff(selectedStaffNo);
-    }
-  };
-
-  // const handleSelect = (selected) => {
-  //   if(selected && selected.length > 0 && selected[0].staff_no) {
-  //     // const selectedStaffNo = selected[0].staff_no;
-  //     // setSelectedStaff(selectedStaffNo);
-  //     setSelectedStaff(selected[0]);
-  //     console.log(selected[0])
-  //   }
-  // };
-  
-
-  //
 
   const [formData, setFormData] = useState({
     fname: "",
@@ -77,18 +38,18 @@ function Staff() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    
     const { dob, manager_date: managerDate } = formData;
 
     // Convert dob to yyyy-mm-dd format
     const dobParts = dob.split('-');
     const newDob = `${dobParts[2]}-${dobParts[1]}-${dobParts[0]}`;
-
-
+    
+  
     // Convert managerDate to yyyy-mm-dd format
     const managerDateParts = managerDate.split('-');
     const newManagerDate = `${managerDateParts[2]}-${managerDateParts[1]}-${managerDateParts[0]}`;
-
+  
     const updatedFormData = {
       ...formData,
       dob: newDob,
@@ -97,7 +58,7 @@ function Staff() {
     console.log(formData);
 
     axios
-      .post("http://127.0.0.1:8000/api/staff/", formData, cors())
+      .post("http://127.0.0.1:8000/api/staff/", formData,cors())
       .then((response) => {
         // console.log(`data${formData}`);
         // TODO: handle success case
@@ -107,15 +68,15 @@ function Staff() {
         // TODO: handle error case
       });
 
-    // console.log(formData);
+      // console.log(formData);
   };
 
   return (
     <>
       <Navbar />
-      <div className="formBranchContainer">
+      <div className="d-flex">
         <Sidebar />
-        <div className="formBranchContainer2">
+        <div className="flex-fill p-2 mx-3 my-4">
           <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridFname">
@@ -159,16 +120,12 @@ function Staff() {
               </Form.Group>
               <Form.Group as={Col} controlId="formGridPOS">
                 <Form.Label>Position</Form.Label>
-                <Form.Select
+                <Form.Control
+                  placeholder="Position"
                   name="pos"
                   value={formData.pos}
                   onChange={handleChange}
-                >
-                  <option value="">Select...</option>
-                  <option value="manager">Manager</option>
-                  <option value="employee">Employee</option>
-                  <option value="supervisor">Supervisor</option>
-                </Form.Select>
+                />
               </Form.Group>
             </Row>
 
@@ -203,25 +160,7 @@ function Staff() {
             </Row>
 
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridStaff">
-                <Form.Label>Staff</Form.Label>
-                <AsyncTypeahead
-                  id="basic-typeahead-single"
-                  labelKey="name"
-                  isLoading={isLoading}
-                  onSearch={(search) => handleSearch(search)}
-                  onChange={handleSelect}
-                  options={stf}
-                  selected={selectedStaff}
-                  renderMenuItemChildren={(option) => (
-                    <div>
-                      <span>{option && option.staff_no && `${option.staff_no}`}</span>
-                      <span> {option.name}</span>
-                    </div>
-                  )}
-                />
-              </Form.Group>
-              {/* <Form.Group as={Col} controlId="formGridSupervisorNo">
+              <Form.Group as={Col} controlId="formGridSupervisorNo">
                 <Form.Label>Supervisor Number</Form.Label>
                 <Form.Control
                   placeholder="Supervisor Number"
@@ -229,7 +168,7 @@ function Staff() {
                   value={formData.supervisor_no}
                   onChange={handleChange}
                 />
-              </Form.Group> */}
+              </Form.Group>
               <Form.Group as={Col} controlId="formGridManagerDate">
                 <Form.Label>Manager Date</Form.Label>
                 <Form.Control
@@ -251,4 +190,4 @@ function Staff() {
   );
 }
 
-export default Staff;
+export default Staff2;

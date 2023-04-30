@@ -7,8 +7,9 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { AsyncTypeahead,Typeahead } from 'react-bootstrap-typeahead';
-
+import React from 'react';
 import { BranchContext } from '../context/branch_ctx';
+import { NavLink } from 'react-router-dom';
 
 
 // import '../components/';
@@ -100,7 +101,26 @@ function BasicExample() {
 />
 
             <NavDropdown title="Forms" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/staff">
+            <NavDropdown.Item as={NavLink} to="/staff" activeClassName="activeClicked">
+  Staff
+</NavDropdown.Item>
+<NavDropdown.Item as={NavLink} to="/branch" activeClassName="activeClicked">
+  Branch
+</NavDropdown.Item>
+<NavDropdown.Item as={NavLink} to="/client" activeClassName="activeClicked">
+  Client
+</NavDropdown.Item>
+<NavDropdown.Item as={NavLink} to="/propertyForRent" activeClassName="activeClicked">
+  Property for rent
+</NavDropdown.Item>
+<NavDropdown.Item as={NavLink} to="/privateowner" activeClassName="activeClicked">
+  Private Owner
+</NavDropdown.Item>
+<NavDropdown.Item as={NavLink} to="/form" activeClassName="activeClicked">
+  Form
+</NavDropdown.Item>
+
+              {/* <NavDropdown.Item href="/staff">
                 Staff
               </NavDropdown.Item>
               <NavDropdown.Item href="/staff">
@@ -115,10 +135,10 @@ function BasicExample() {
               <NavDropdown.Item href="/privateowner">
                 Private Owner
               </NavDropdown.Item>
-              {/* <NavDropdown.Divider /> */}
               <NavDropdown.Item href="#action/3.4">
                 Form
-              </NavDropdown.Item>
+              </NavDropdown.Item> */}
+              {/* <NavDropdown.Divider /> */}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -127,7 +147,7 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default React.memo(BasicExample);
 
 
 

@@ -14,43 +14,58 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 function Staff() {
 
-  const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
-  console.log(`staff-branch=>${selectedBranch}`)
+  const [staffOptions, setStaffOptions] = useState([]);
+  // const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
 
+  useEffect(() => {
+    const fetchStaffOptions = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/supervisor/${selectedBranch}`);
+        const data = await response.json();
+        setStaffOptions(data.staff_no);
+        console.log(`data---->${data.staff_no}`)
+        // console.log(staffOptions)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchStaffOptions();
+  }, []);
   //
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedStaff, setSelectedStaff] = useState([]);
-  const [stf, setstf] = useState([]);
 
+///@@@@@@@@@@@@@@@@@@@@@@
+  const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
+  const [stf, setstf] = useState([]);
+  const [SelectedStaff, setSelectedStaff] = useState([]);
 
   const handleSearch = async (query) => {
-    setIsLoading(true);
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/staff/${selectedBranch}/search?q=${query}`);
+
+      const response = await fetch(`http://127.0.0.1:8000/api/supervisor/${selectedBranch}/search?q=${query}`);
       const data = await response.json();
       setstf(data);
+      console.log(data)
+      return data;
     } catch (error) {
       console.error(error);
     }
-    setIsLoading(false);
   };
 
-  const handleSelect = (selected) => {
-    if(selected && selected.length > 0 && selected[0].staff_no) {
-    const selectedStaffNo = selected[0].staff_no;
-    setSelectedStaff(selectedStaffNo);
-    }
-  };
 
   // const handleSelect = (selected) => {
-  //   if(selected && selected.length > 0 && selected[0].staff_no) {
-  //     // const selectedStaffNo = selected[0].staff_no;
-  //     // setSelectedStaff(selectedStaffNo);
-  //     setSelectedStaff(selected[0]);
-  //     console.log(selected[0])
-  //   }
+  //     console.log(selected)
   // };
-  
+
+
+
+  const handleSelect = (selected) => {
+    // if(selected && selected.length > 0 && selected.staff_no) {
+    //   setSelectedStaff(selected);
+    //   console.log(selected)
+    // }
+    console.log(selected)
+  };
+
 
   //
 
@@ -166,7 +181,7 @@ function Staff() {
                 >
                   <option value="">Select...</option>
                   <option value="manager">Manager</option>
-                  <option value="employee">Employee</option>
+                  <option value="employee">Assistant</option>
                   <option value="supervisor">Supervisor</option>
                 </Form.Select>
               </Form.Group>
@@ -203,7 +218,19 @@ function Staff() {
             </Row>
 
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridStaff">
+
+            <Form.Group as={Col} controlId="formGridRegStaff">
+                <Form.Label>Supervisor</Form.Label>
+                <Form.Control as="select" defaultValue="Choose..." name="proptype" value={formData.proptype} onChange={handleChange}>
+                  <option>Choose...</option>
+                  {staffOptions?.map((staff) => (
+                    <option key={staff.staff_no} value={staff.id}>
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+
+              {/* <Form.Group as={Col} controlId="formGridStaff">
                 <Form.Label>Staff</Form.Label>
                 <AsyncTypeahead
                   id="basic-typeahead-single"
@@ -220,7 +247,25 @@ function Staff() {
                     </div>
                   )}
                 />
-              </Form.Group>
+              </Form.Group> */}
+              
+              {/* <Form.Group as={Col} controlId="formGridRegStaff">
+                <Form.Label id="staff">staff_no</Form.Label>
+                <AsyncTypeahead
+                  id="basic-typeahead-single"
+                  labelKey="staff_no"
+                  placeholder="Supervisor"
+                  onSearch={(search) => handleSearch(search)}
+                  onChange={handleSelect}
+                  options={stf}
+                  renderMenuItemChildren={(option) => (
+                    <div>
+                      <span>{option.staff_no}</span>
+                    </div>
+                  )}
+                />
+              </Form.Group> */}
+
               {/* <Form.Group as={Col} controlId="formGridSupervisorNo">
                 <Form.Label>Supervisor Number</Form.Label>
                 <Form.Control

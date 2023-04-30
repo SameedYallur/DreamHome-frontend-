@@ -2,10 +2,11 @@ import { useContext, useState, useEffect } from "react";
 import { Table, Button } from 'react-bootstrap';
 import axios from "axios";
 import { BranchContext } from '../context/branch_ctx';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -50,10 +51,11 @@ function PropertyByBranchTable({ branchNo }) {
                     ...prevBranchData,
                     property: prevBranchData.property.filter(property => property.id !== propertyId)
                 }));
+                // setPropertyData(propertyData.filter(property => property.propertyno !== propertyId));
             })
             .catch((error) => {
                 console.log(error);
-            });
+            }); 
     };
 
     if (!branchData) {
@@ -79,9 +81,9 @@ function PropertyByBranchTable({ branchNo }) {
                         branchData.property.map((property) => (
                             <tr key={property.id}>
                                 <td>
-                                    <Link to={`/propertyForRent/${property.propertyno}`}>
+                                    <NavLink to={`/propertyForRent/${property.propertyno}`}>
                                         {property.propertyno}
-                                    </Link>
+                                    </NavLink>
                                 </td>
                                 <td>{property.proptype}</td>
                                 <td>{property.rent}</td>
@@ -89,24 +91,24 @@ function PropertyByBranchTable({ branchNo }) {
                                 <td>{property.rooms}</td>
                                 <td>
                                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <Link to={`/report/${property.propertyno}`}>
+                                        <NavLink to={`/report/${property.propertyno}`}>
                                             <FontAwesomeIcon icon={faComment} style={{ color: "#000000", }} />
-                                        </Link>{"   "}
-                                        <Link>
+                                        </NavLink>{"   "}
+                                        <NavLink>
                                             <button onClick={() => handleDelete(property.propertyno)} style={{ border: "none" }} >
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </button>
-                                        </Link>{" "}{" "}
-                                        <Link to={`/property-report/${property.propertyno}`} style={{ marginRight: '53px' }}>
+                                        </NavLink>{" "}{" "}
+                                        <NavLink to={`/property-report/${property.propertyno}`} style={{ marginRight: '53px' }}>
                                             <FontAwesomeIcon icon={faFile} style={{ color: "#000000", }} />
-                                        </Link>{" "}
+                                        </NavLink>{" "}
 
-                                        <Link to={`/propertymatch/${property.propertyno}`}>
+                                        <NavLink to={`/propertymatch/${property.propertyno}`}>
                                             <span>{propertyMatchCounts[property.propertyno]} matches</span>
-                                        </Link>
-                                        <Link to={`/lease/${property.propertyno}`}>
+                                        </NavLink>
+                                        <NavLink to={`/lease/${property.propertyno}`}>
                                             <Button variant="outline-info" size="sm">Lease</Button>
-                                        </Link>
+                                        </NavLink>
                                     </div>
 
                                 </td>

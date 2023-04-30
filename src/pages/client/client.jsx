@@ -5,12 +5,84 @@ import Row from 'react-bootstrap/Row';
 import Navbar from "../../components/Navbar.jsx"
 import Sidebar from "../../components/Sidebar.jsx"
 
-import React, { useContext, useState ,useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { BranchContext } from '../../context/branch_ctx';
 
 
 function Client() {
+  const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
+
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    regbranch:`${selectedBranch}`,
+    preference: "",
+    maxrent: "",
+    regdate: "",
+    regstaff: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Form data:', formData);
+    fetch('http://127.0.0.1:8000/api/client/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        alert("Form has been submitted")
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        // handle successful response here
+      })
+      .catch((error) => {
+        console.error('There was an error!', error);
+      });
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@2
+  const [label_key, setLabel_key] = useState("name");
+  const [boolean, setBoolean] = useState(false);
+
+  const handleMenuItemClick = (selected) => {
+    setLabel_key("staff_no");
+    setBoolean(true);
+    setFormData((prevState) => ({
+      ...prevState,
+      regstaff: selected.staff_no // Set regStaff to the selected staff's staff_no value
+    }));
+  }
+
+  const handleSelect = (selected) => {
+    // if(selected && selected.length > 0 && selected[0].branch_no) {
+    console.log(selected)
+    if (boolean) {
+      setLabel_key("staff_no");
+      setBoolean(false);
+    } else {
+      setLabel_key("name");
+    }
+    // }
+  };
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@2
+
 
   const [staffOptions, setStaffOptions] = useState([]);
 
@@ -29,7 +101,6 @@ function Client() {
   }, []);
 
   const [isLoading, setIsLoading] = useState(false);
-  const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
   const [stf, setstf] = useState([]);
 
   const handleSearch = async (query) => {
@@ -47,105 +118,140 @@ function Client() {
     }
   };
 
-  const handleSelect = (selected) => {
-    // if(selected && selected.length > 0 && selected[0].branch_no) {
-      console.log(selected)
-      // setSelected(selected);
-      // setInputClassName('my-input-class');
-      // setSelectedBranch(selected[0].branch_no);
-    // }
-  };
+  // const handleSelect = (selected) => {
+  //   // if(selected && selected.length > 0 && selected[0].branch_no) {
+  //     console.log(selected)
+  //     // setSelected(selected);
+  //     // setInputClassName('my-input-class');
+  //     // setSelectedBranch(selected[0].branch_no);
+  //   // }
+  // };
 
-    return (
-      <>
+  return (
+    <>
       <Navbar />
       <div className='formBranchContainer'>
-      <Sidebar />
-      <div className='formBranchContainer2'>
-      <Form>
-      <Row className="mb-3">
-      <Form.Group as={Col} controlId="formGridFname">
-      <Form.Label>First Name</Form.Label>
-      <Form.Control  placeholder="Enter First Name" />
-      </Form.Group>
-      <Form.Group as={Col} controlId="formGridLname">
-      <Form.Label>Last Name</Form.Label>
-      <Form.Control  placeholder="Enter Last Name" />
-      </Form.Group>
-      </Row>
+        <Sidebar />
+        <div className='formBranchContainer2'>
+          <Form onSubmit={handleSubmit}>
+            <Row className="mb-3">
 
-      <Row className="mb-3">
-      <Form.Group as={Col} controlId="formGridRegBranch">
-      <Form.Label>Branch</Form.Label>
-      <Form.Select defaultValue="Choose..." disabled>
-      <option>{selectedBranch}</option>
-      </Form.Select>
-      </Form.Group>
+              <Form.Group as={Col} controlId="formGridFname">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  name="fname"
+                  placeholder="Enter First Name"
+                  value={formData.fname}
+                  onChange={handleChange}
+                />
+              </Form.Group>
 
-      <Form.Group as={Col} controlId="formGridRegStaff">
-  <Form.Label>Preference Types</Form.Label>
-  <Form.Control as="select" defaultValue="Choose...">
-    <option>Choose...</option>
-    {staffOptions.map((staff) => (
-      <option key={staff.id} value={staff.id}>
-        {staff.name}
-      </option>
-    ))}
-  </Form.Control>
-</Form.Group>
+              <Form.Group as={Col} controlId="formGridLname">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  name="lname"
+                  placeholder="Enter Last Name"
+                  value={formData.lname}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Row>
 
-      {/* <Form.Group as={Col} controlId="formGridPrefType">
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridRegBranch">
+                <Form.Label>Branch</Form.Label>
+                <Form.Select defaultValue="Choose..." disabled>
+                  <option>{selectedBranch}</option>
+                </Form.Select>
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridRegStaff">
+                <Form.Label>Preference Types</Form.Label>
+                <Form.Control as="select" defaultValue="Choose..." name="preference"
+                  value={formData.preference}
+                  onChange={handleChange}>
+                  <option>Choose...</option>
+                  {staffOptions.map((staff) => (
+                    <option key={staff.id} value={staff.id}>
+                      {staff.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+
+              {/* <Form.Group as={Col} controlId="formGridPrefType">
       <Form.Label>Preference Type</Form.Label>
       <Form.Control  placeholder="Enter Preference" />
       </Form.Group> */}
-      <Form.Group as={Col} controlId="formGridMaxRent">
-      <Form.Label>Max. Rent</Form.Label>
-      <Form.Control  placeholder="Enter Max. Rent" />
-      </Form.Group>
-      </Row>
+              <Form.Group as={Col} controlId="formGridMaxRent">
+                <Form.Label>Max. Rent</Form.Label>
+                <Form.Control
+                  name="maxrent"
+                  placeholder="Enter Max. Rent"
+                  value={formData.maxrent}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Row>
 
-      <Row className="mb-3">
-      <Form.Group as={Col}controlId="formGridRegDate">
-      <Form.Label>Registration Date</Form.Label>
-      <Form.Control type="date"  />
-      </Form.Group>
-      <Form.Group as={Col} controlId="formGridRegStaff">
-  <Form.Label id="staff">Staff</Form.Label>
-  <AsyncTypeahead
-  id="basic-typeahead-single"
-  labelKey="name" // Update labelKey to the name field
-  placeholder="staff"
-  isLoading={isLoading}
-  onSearch={(search) => handleSearch(search)}
-  onChange={handleSelect}
-  options={stf}
-  renderMenuItemChildren={(option) => (
-    <div>
-      {/* <span>{option.staff_no}</span> Display staff_no */}
-      <span>  {option.name}</span> {/* Display name */}
-    </div>
-  )}
-/>
-</Form.Group>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridRegDate">
+                <Form.Label>Registration Date</Form.Label>
+                <Form.Control
+                  name="regdate"
+                  type="date"
+                  value={formData.regdate}
+                  onChange={(event) =>
+                    handleChange({
+                      target: {
+                        name: "regdate",
+                        value: event.target.value,
+                      },
+                    })
+                  }
+                />
+              </Form.Group>
 
-      {/* <Form.Group as={Col} controlId="formGridRegStaff">
+              <Form.Group as={Col} controlId="formGridRegStaff">
+                <Form.Label id="staff">Staff</Form.Label>
+                <AsyncTypeahead
+                  id="basic-typeahead-single"
+                  labelKey={label_key}
+                  placeholder="staff"
+                  isLoading={isLoading}
+                  onSearch={(search) => handleSearch(search)}
+                  onChange={handleSelect}
+                  options={stf}
+                  renderMenuItemChildren={(option) => (
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleMenuItemClick(option)}
+                    >
+                      <span>{option.staff_no}</span>
+                      <span>  {option.name}</span>
+                    </div>
+                  )}
+                />
+              </Form.Group>
+
+              {/* <Form.Group as={Col} controlId="formGridRegStaff">
       <Form.Label>Staff</Form.Label>
       <Form.Select defaultValue="Choose...">
       <option>Choose...</option>
       <option>...</option>
       </Form.Select>
       </Form.Group>       */}
-      </Row>
-      
-      
-      <Button variant="primary" type="submit">
-      Submit
-      </Button>
-      </Form>
+            </Row>
+
+
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </div>
       </div>
-      </div>
-      </>
-      );
-  }
-  
-  export default Client;
+    </>
+  );
+}
+
+export default Client;

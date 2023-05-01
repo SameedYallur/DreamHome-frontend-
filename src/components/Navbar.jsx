@@ -1,12 +1,12 @@
 import Container from 'react-bootstrap/Container';
-import {useContext , useState , useEffect  } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { AsyncTypeahead,Typeahead } from 'react-bootstrap-typeahead';
+import { AsyncTypeahead, Typeahead } from 'react-bootstrap-typeahead';
 import React from 'react';
 import { BranchContext } from '../context/branch_ctx';
 import { NavLink } from 'react-router-dom';
@@ -22,7 +22,7 @@ function BasicExample() {
   const [inputClassName, setInputClassName] = useState('');
   const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
   // const [placeholder, setPlaceholder] = useState(`Branch: ${selectedBranch}`);
-  
+
   // useEffect(() => {
   //   setSelected([{ branch_no: selectedBranch }]);
   // }, [selectedBranch]);
@@ -39,9 +39,9 @@ function BasicExample() {
       console.error(error);
     }
   };
-  
+
   const handleSelect = (selected) => {
-    if(selected && selected.length > 0 && selected[0].branch_no) {
+    if (selected && selected.length > 0 && selected[0].branch_no) {
       console.log(selected)
       setSelected(selected);
       setInputClassName('my-input-class');
@@ -55,7 +55,7 @@ function BasicExample() {
     const q = typeof query === 'string' ? query.toLowerCase() : '';
     return branchNo.includes(q) || address.includes(q);
   };
-  
+
   return (
     <Navbar bg="secondary" expand="lg" >
       <Container>
@@ -63,63 +63,59 @@ function BasicExample() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto d-flex justify-content-center align-items-center">
-          <AsyncTypeahead
-  id="basic-typeahead-single"
-  labelKey="branch_no"
-  placeholder={selectedBranch ? `Branch: ${selectedBranch}` : 'Please select a branch'}
-  isLoading={isLoading}
-  onSearch={(search) => handleSearch(search)}
-  onChange={handleSelect}
-  options={options}
-  filterBy={(option, text) => filterByFields(option, text)}
+            <AsyncTypeahead
+              id="basic-typeahead-single"
+              labelKey="branch_no"
+              placeholder={selectedBranch ? `Branch: ${selectedBranch}` : 'Please select a branch'}
+              isLoading={isLoading}
+              onSearch={(search) => handleSearch(search)}
+              onChange={handleSelect}
+              options={options}
+              filterBy={(option, text) => filterByFields(option, text)}
 
-  renderMenuItemChildren={(option, props) => (
-    <div onClick={() => {
-      if (option && option.branch_no) { // Check if option and branch_no exist
-        setSelected([option.branch_no]); // Update selected state with branch_no
-      }
-      if (props.onClick) {
-        props.onClick(option);
-      }
-    }}>
-      {option && option.branch_no && option.address ? `${option.branch_no}-${option.address}` : ''}
-    </div>
-  )}
-  // renderMenuItemChildren={(option, props) => (
-  //   <div onClick={() => {
-  //     if (option && option.branch_no) { //@#@#@# check if option and branch_no exist
-  //       setSelected([option.branch_no]); // update selected state with branch_no
-  //     } // update selected state with branch_no
-  //       if (props.onClick) {
-  //         props.onClick(option);
-  //       }
-  //   }}>
-  //     {option && option.branch_no && option.address ? `${option.branch_no}-${option.address}` : ''}
-  //   </div>
-  // )}
+              renderMenuItemChildren={(option, props) => (
+                <div onClick={() => {
+                  if (option && option.branch_no) { // Check if option and branch_no exist
+                    setSelected([option.branch_no]); // Update selected state with branch_no
+                  }
+                  if (props.onClick) {
+                    props.onClick(option);
+                  }
+                }}>
+                  {option && option.branch_no && option.address ? `${option.branch_no}-${option.address}` : ''}
+                </div>
+              )}
+            // renderMenuItemChildren={(option, props) => (
+            //   <div onClick={() => {
+            //     if (option && option.branch_no) { //@#@#@# check if option and branch_no exist
+            //       setSelected([option.branch_no]); // update selected state with branch_no
+            //     } // update selected state with branch_no
+            //       if (props.onClick) {
+            //         props.onClick(option);
+            //       }
+            //   }}>
+            //     {option && option.branch_no && option.address ? `${option.branch_no}-${option.address}` : ''}
+            //   </div>
+            // )}
 
-/>
+            />
 
             <NavDropdown title="Forms" id="basic-nav-dropdown">
-            <NavDropdown.Item as={NavLink} to="/staff" activeClassName="activeClicked">
-  Staff
-</NavDropdown.Item>
-<NavDropdown.Item as={NavLink} to="/branch" activeClassName="activeClicked">
-  Branch
-</NavDropdown.Item>
-<NavDropdown.Item as={NavLink} to="/client" activeClassName="activeClicked">
-  Client
-</NavDropdown.Item>
-<NavDropdown.Item as={NavLink} to="/propertyForRent" activeClassName="activeClicked">
-  Property for rent
-</NavDropdown.Item>
-<NavDropdown.Item as={NavLink} to="/privateowner" activeClassName="activeClicked">
-  Private Owner
-</NavDropdown.Item>
-<NavDropdown.Item as={NavLink} to="/form" activeClassName="activeClicked">
-  Form
-</NavDropdown.Item>
-
+              <NavDropdown.Item as={NavLink} to="/branch" activeClassName="activeClicked">
+                Branch
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/client" activeClassName="activeClicked">
+                Client
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/propertyForRent" activeClassName="activeClicked">
+                Property for rent
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/privateowner" activeClassName="activeClicked">
+                Private Owner
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/staff" activeClassName="activeClicked">
+                Staff
+              </NavDropdown.Item>
               {/* <NavDropdown.Item href="/staff">
                 Staff
               </NavDropdown.Item>

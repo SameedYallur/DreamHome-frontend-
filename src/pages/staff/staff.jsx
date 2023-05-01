@@ -22,7 +22,11 @@ function Staff() {
       try {
         const response = await fetch(`http://127.0.0.1:8000/api/supervisor/${selectedBranch}`);
         const data = await response.json();
-        setStaffOptions(data);
+        if (Array.isArray(data)) {
+          setStaffOptions(data);
+        } else {
+          setStaffOptions([]);
+        }
         console.log(`data---->${data}`)
         // console.log(staffOptions)
       } catch (error) {

@@ -22,8 +22,8 @@ function Staff() {
       try {
         const response = await fetch(`http://127.0.0.1:8000/api/supervisor/${selectedBranch}`);
         const data = await response.json();
-        setStaffOptions(data.staff_no);
-        console.log(`data---->${data.staff_no}`)
+        setStaffOptions(data);
+        console.log(`data---->${data}`)
         // console.log(staffOptions)
       } catch (error) {
         console.error(error);
@@ -38,18 +38,18 @@ function Staff() {
   const [stf, setstf] = useState([]);
   const [SelectedStaff, setSelectedStaff] = useState([]);
 
-  const handleSearch = async (query) => {
-    try {
+  // const handleSearch = async (query) => {
+  //   try {
 
-      const response = await fetch(`http://127.0.0.1:8000/api/supervisor/${selectedBranch}/search?q=${query}`);
-      const data = await response.json();
-      setstf(data);
-      console.log(data)
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     const response = await fetch(`http://127.0.0.1:8000/api/supervisor/${selectedBranch}/search?q=${query}`);
+  //     const data = await response.json();
+  //     setstf(data);
+  //     console.log(data)
+  //     return data;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
 
   // const handleSelect = (selected) => {
@@ -77,7 +77,7 @@ function Staff() {
     pos: "",
     salary: "",
     manager_bonus: "",
-    branch_no: "",
+    branch_no: `${selectedBranch}`,
     supervisor_no: "",
     manager_date: "",
   });
@@ -119,7 +119,7 @@ function Staff() {
       })
       .catch((error) => {
         console.error(error);
-        // TODO: handle error case
+        console.log(formData);
       });
 
     // console.log(formData);
@@ -206,25 +206,25 @@ function Staff() {
                   onChange={handleChange}
                 />
               </Form.Group>
-              <Form.Group as={Col} controlId="formGridBranchNo">
-                <Form.Label>Branch Number</Form.Label>
-                <Form.Control
-                  placeholder="Branch Number"
-                  name="branch_no"
-                  value={formData.branch_no}
-                  onChange={handleChange}
-                />
+
+              <Form.Group as={Col} controlId="formGridRegBranch">
+                <Form.Label>Branch</Form.Label>
+                <Form.Select defaultValue="Choose..." disabled>
+                  <option>{selectedBranch}</option>
+                </Form.Select>
               </Form.Group>
+
             </Row>
 
             <Row className="mb-3">
 
             <Form.Group as={Col} controlId="formGridRegStaff">
                 <Form.Label>Supervisor</Form.Label>
-                <Form.Control as="select" defaultValue="Choose..." name="proptype" value={formData.proptype} onChange={handleChange}>
+                <Form.Control as="select" defaultValue="Choose..." name="supervisor_no" value={formData.staff_no} onChange={handleChange}>
                   <option>Choose...</option>
                   {staffOptions?.map((staff) => (
-                    <option key={staff.staff_no} value={staff.id}>
+                    <option key={staff.staff_no} value={staff.staff_no}>
+                      {staff.staff_no}
                     </option>
                   ))}
                 </Form.Control>

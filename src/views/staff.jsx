@@ -9,13 +9,15 @@ function staff() {
     <>
       {/* <Container> */}
       <Navbar />
-
+      <div className="formBranchContainer3">
+      
       <div className="d-flex">
-        <Sidebar />
-        <div className="flex-fill p-2 mx-3 my-4">
-          <h1 className="text-center">Staff Listing</h1>
-          <Display_fields />
-          <Table />
+      <Sidebar />
+      <div className="flex-fill p-2 mx-3 my-4">
+      <h1 className="text-center">Staff Listing</h1>
+      <Display_fields />
+      <Table />
+      </div>
         </div>
       </div>
     </>

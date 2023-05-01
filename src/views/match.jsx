@@ -12,21 +12,23 @@ function MatchView() {
     <>
       {/* <Container> */}
       <Navbar />
+      <div className="formBranchContainer3">
       <div className="d-flex">
-        <Sidebar />
-        <div className="flex-fill p-2 mx-3 my-4">
-          <h1 className="text-center">Property Listing</h1>
-          {propertyno ? (
-            <><Display_fields propertyNo={propertyno} />
-            <MatchTable propertyNo={propertyno} style={{ paddingLeft: 0, marginLeft: 0 }} /></>
-          ) : (
-            <p>Please choose a property</p>
+      <Sidebar />
+      <div className="flex-fill p-2 mx-3 my-4">
+      <h1 className="text-center">Property Listing</h1>
+      {propertyno ? (
+        <><Display_fields propertyNo={propertyno} />
+        <MatchTable propertyNo={propertyno} style={{ paddingLeft: 0, marginLeft: 0 }} /></>
+        ) : (
+          <p>Please choose a property</p>
           )}
-        </div>
-      </div>
-      {/* </Container> */}
-    </>
-  );
+          </div>
+          </div>
+          </div>
+          {/* </Container> */}
+          </>
+          );
 
   // return (
   //   <>

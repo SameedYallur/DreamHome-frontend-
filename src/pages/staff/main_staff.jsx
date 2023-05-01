@@ -9,6 +9,7 @@ import axios from "axios";
 import cors from "cors";
 import { useContext } from "react";
 import { BranchContext } from '../../context/branch_ctx';
+import "./staff.css"
 
 function Staff2() {
 
@@ -77,117 +78,119 @@ function Staff2() {
       <div className="d-flex">
         <Sidebar />
         <div className="flex-fill p-2 mx-3 my-4">
-          <Form onSubmit={handleSubmit}>
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridFname">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
-                  placeholder="Enter First Name"
-                  name="fname"
-                  value={formData.fname}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridLname">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
-                  placeholder="Enter Last Name"
-                  name="lname"
-                  value={formData.lname}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Row>
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridDOB">
-                <Form.Label>DOB</Form.Label>
-                <Form.Control
-                  type="date"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridSex">
-                <Form.Label>Sex</Form.Label>
-                <Form.Control
-                  placeholder="Gender"
-                  name="sex"
-                  value={formData.sex}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridPOS">
-                <Form.Label>Position</Form.Label>
-                <Form.Control
-                  placeholder="Position"
-                  name="pos"
-                  value={formData.pos}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Row>
-
-            <Row className="mb-3">
+        <div className="formCard">
+        <Form onSubmit={handleSubmit}>
+        <Row className="mb-3">
+        <Form.Group as={Col} controlId="formGridFname">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control
+        placeholder="Enter First Name"
+        name="fname"
+        value={formData.fname}
+        onChange={handleChange}
+        />
+        </Form.Group>
+        
+        <Form.Group as={Col} controlId="formGridLname">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control
+        placeholder="Enter Last Name"
+        name="lname"
+        value={formData.lname}
+        onChange={handleChange}
+        />
+        </Form.Group>
+        </Row>
+        <Row className="mb-3">
+        <Form.Group as={Col} controlId="formGridDOB">
+        <Form.Label>DOB</Form.Label>
+        <Form.Control
+        type="date"
+        name="dob"
+        value={formData.dob}
+        onChange={handleChange}
+        />
+        </Form.Group>
+        <Form.Group as={Col} controlId="formGridSex">
+        <Form.Label>Sex</Form.Label>
+        <Form.Control
+        placeholder="Gender"
+        name="sex"
+        value={formData.sex}
+        onChange={handleChange}
+        />
+        </Form.Group>
+        <Form.Group as={Col} controlId="formGridPOS">
+        <Form.Label>Position</Form.Label>
+        <Form.Control
+        placeholder="Position"
+        name="pos"
+        value={formData.pos}
+        onChange={handleChange}
+        />
+        </Form.Group>
+        </Row>
+        
+        <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridSalary">
                 <Form.Label>Salary</Form.Label>
                 <Form.Control
-                  placeholder="Salary"
-                  name="salary"
-                  value={formData.salary}
-                  onChange={handleChange}
+                placeholder="Salary"
+                name="salary"
+                value={formData.salary}
+                onChange={handleChange}
                 />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridManagerBonus">
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridManagerBonus">
                 <Form.Label>Manager Bonus</Form.Label>
                 <Form.Control
-                  placeholder="Manager Bonus"
-                  name="manager_bonus"
-                  value={formData.manager_bonus}
-                  onChange={handleChange}
+                placeholder="Manager Bonus"
+                name="manager_bonus"
+                value={formData.manager_bonus}
+                onChange={handleChange}
                 />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridBranchNo">
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridBranchNo">
                 <Form.Label>Branch Number</Form.Label>
                 <Form.Control
-                  placeholder="Branch Number"
-                  name="branch_no"
-                  value={formData.branch_no}
-                  onChange={handleChange}
+                placeholder="Branch Number"
+                name="branch_no"
+                value={formData.branch_no}
+                onChange={handleChange}
                 />
-              </Form.Group>
+                </Form.Group>
             </Row>
 
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridSupervisorNo">
+            <Form.Group as={Col} controlId="formGridSupervisorNo">
                 <Form.Label>Supervisor Number</Form.Label>
                 <Form.Control
                   placeholder="Supervisor Number"
                   name="supervisor_no"
                   value={formData.supervisor_no}
                   onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridManagerDate">
-                <Form.Label>Manager Date</Form.Label>
-                <Form.Control
+                  />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridManagerDate">
+                  <Form.Label>Manager Date</Form.Label>
+                  <Form.Control
                   type="date"
                   name="manager_date"
                   value={formData.manager_date}
                   onChange={handleChange}
-                />
+                  />
               </Form.Group>
-            </Row>
-
-            <Button variant="primary" type="submit">
+              </Row>
+              
+              <Button variant="primary" type="submit">
               Submit
-            </Button>
-          </Form>
-        </div>
-      </div>
-    </>
-  );
-}
-
+              </Button>
+              </Form>
+              </div>
+              </div>
+              </div>
+              </>
+              );
+            }
+            
 export default Staff2;

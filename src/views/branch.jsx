@@ -10,13 +10,16 @@ function BranchView() {
     <>
       {/* <Container> */}
       <Navbar/>
+      <div className="formBranchContainer3">
       <div className="d-flex">
-        <Sidebar />
-        <div className="flex-fill p-2 mx-3 my-4">
-          <h1 className="text-center">Branches</h1>
-          <Table />
-        </div>
+      <Sidebar />
+      <div className="flex-fill p-2 mx-3 my-4">
+      <h1 className="text-center">Branches</h1>
+      <Table />
       </div>
+      </div>
+      </div>
+    
       {/* </Container> */}
     </>
   );

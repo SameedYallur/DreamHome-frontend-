@@ -57,9 +57,9 @@ function BasicExample() {
   };
   
   return (
-    <Navbar bg="secondary" expand="lg" >
+    <Navbar bg="dark" variant="dark" expand="lg" >
       <Container>
-        <Navbar.Brand href="#home">Dream Home</Navbar.Brand>
+        <Navbar.Brand href="/home" >Dream Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto d-flex justify-content-center align-items-center">

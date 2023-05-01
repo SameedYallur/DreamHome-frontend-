@@ -17,6 +17,7 @@ import Lease from './pages/lease/lease'
 import ReportForm from './pages/Report/viewReport';
 
 import { BranchProvider } from './context/branch_ctx';
+import Landingpage from './pages/landingpage/landingpage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <BranchProvider>
       <Router>
         <Routes>
+        <Route path="/" element={<Landingpage />}/>
         <Route path="/home" element={<Home />}/>
         <Route path="/branch" element={<Branch />}/>
         <Route path="/staff" element={<Staff />}/>

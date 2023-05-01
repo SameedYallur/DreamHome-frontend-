@@ -10,6 +10,7 @@ import cors from "cors";
 import { useEffect, useContext } from "react";
 import { BranchContext } from '../../context/branch_ctx';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import "./staff.css"
 
 
 function Staff() {
@@ -131,71 +132,72 @@ function Staff() {
       <div className="formBranchContainer">
         <Sidebar />
         <div className="formBranchContainer2">
-          <Form onSubmit={handleSubmit}>
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridFname">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
+        <div className="formCard">
+        <Form onSubmit={handleSubmit}>
+        <Row className="mb-3">
+        <Form.Group as={Col} controlId="formGridFname">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control
                   placeholder="Enter First Name"
                   name="fname"
                   value={formData.fname}
                   onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridLname">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
+                  />
+                  </Form.Group>
+                  
+                  <Form.Group as={Col} controlId="formGridLname">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
                   placeholder="Enter Last Name"
                   name="lname"
                   value={formData.lname}
                   onChange={handleChange}
-                />
-              </Form.Group>
-            </Row>
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridDOB">
-                <Form.Label>DOB</Form.Label>
-                <Form.Control
+                  />
+                  </Form.Group>
+                  </Row>
+                  <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridDOB">
+                  <Form.Label>DOB</Form.Label>
+                  <Form.Control
                   type="date"
                   name="dob"
                   value={formData.dob}
                   onChange={handleChange}
                 />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridSex">
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridSex">
                 <Form.Label>Sex</Form.Label>
                 <Form.Control
-                  placeholder="Gender"
-                  name="sex"
-                  value={formData.sex}
-                  onChange={handleChange}
+                placeholder="Gender"
+                name="sex"
+                value={formData.sex}
+                onChange={handleChange}
                 />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridPOS">
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridPOS">
                 <Form.Label>Position</Form.Label>
                 <Form.Select
-                  name="pos"
-                  value={formData.pos}
-                  onChange={handleChange}
+                name="pos"
+                value={formData.pos}
+                onChange={handleChange}
                 >
-                  <option value="">Select...</option>
-                  <option value="manager">Manager</option>
-                  <option value="employee">Assistant</option>
-                  <option value="supervisor">Supervisor</option>
+                <option value="">Select...</option>
+                <option value="manager">Manager</option>
+                <option value="employee">Assistant</option>
+                <option value="supervisor">Supervisor</option>
                 </Form.Select>
-              </Form.Group>
-            </Row>
-
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridSalary">
+                </Form.Group>
+                </Row>
+                
+                <Row className="mb-3">
+                <Form.Group as={Col} controlId="formGridSalary">
                 <Form.Label>Salary</Form.Label>
                 <Form.Control
                   placeholder="Salary"
                   name="salary"
                   value={formData.salary}
                   onChange={handleChange}
-                />
+                  />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridManagerBonus">
                 <Form.Label>Manager Bonus</Form.Label>
@@ -204,54 +206,54 @@ function Staff() {
                   name="manager_bonus"
                   value={formData.manager_bonus}
                   onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridBranchNo">
-                <Form.Label>Branch Number</Form.Label>
-                <Form.Control
+                  />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridBranchNo">
+                  <Form.Label>Branch Number</Form.Label>
+                  <Form.Control
                   placeholder="Branch Number"
                   name="branch_no"
                   value={formData.branch_no}
                   onChange={handleChange}
-                />
-              </Form.Group>
-            </Row>
-
-            <Row className="mb-3">
-
-            <Form.Group as={Col} controlId="formGridRegStaff">
-                <Form.Label>Supervisor</Form.Label>
-                <Form.Control as="select" defaultValue="Choose..." name="proptype" value={formData.proptype} onChange={handleChange}>
+                  />
+                  </Form.Group>
+                  </Row>
+                  
+                  <Row className="mb-3">
+                  
+                  <Form.Group as={Col} controlId="formGridRegStaff">
+                  <Form.Label>Supervisor</Form.Label>
+                  <Form.Control as="select" defaultValue="Choose..." name="proptype" value={formData.proptype} onChange={handleChange}>
                   <option>Choose...</option>
                   {staffOptions?.map((staff) => (
                     <option key={staff.staff_no} value={staff.id}>
                     </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
-
-              {/* <Form.Group as={Col} controlId="formGridStaff">
-                <Form.Label>Staff</Form.Label>
-                <AsyncTypeahead
-                  id="basic-typeahead-single"
-                  labelKey="name"
-                  isLoading={isLoading}
-                  onSearch={(search) => handleSearch(search)}
-                  onChange={handleSelect}
-                  options={stf}
-                  selected={selectedStaff}
+                    ))}
+                    </Form.Control>
+                    </Form.Group>
+                    
+                    {/* <Form.Group as={Col} controlId="formGridStaff">
+                    <Form.Label>Staff</Form.Label>
+                    <AsyncTypeahead
+                    id="basic-typeahead-single"
+                    labelKey="name"
+                    isLoading={isLoading}
+                    onSearch={(search) => handleSearch(search)}
+                    onChange={handleSelect}
+                    options={stf}
+                    selected={selectedStaff}
                   renderMenuItemChildren={(option) => (
                     <div>
-                      <span>{option && option.staff_no && `${option.staff_no}`}</span>
-                      <span> {option.name}</span>
+                    <span>{option && option.staff_no && `${option.staff_no}`}</span>
+                    <span> {option.name}</span>
                     </div>
-                  )}
-                />
-              </Form.Group> */}
-              
-              {/* <Form.Group as={Col} controlId="formGridRegStaff">
-                <Form.Label id="staff">staff_no</Form.Label>
-                <AsyncTypeahead
+                    )}
+                    />
+                  </Form.Group> */}
+                  
+                  {/* <Form.Group as={Col} controlId="formGridRegStaff">
+                  <Form.Label id="staff">staff_no</Form.Label>
+                  <AsyncTypeahead
                   id="basic-typeahead-single"
                   labelKey="staff_no"
                   placeholder="Supervisor"
@@ -261,38 +263,39 @@ function Staff() {
                   renderMenuItemChildren={(option) => (
                     <div>
                       <span>{option.staff_no}</span>
-                    </div>
-                  )}
-                />
-              </Form.Group> */}
-
-              {/* <Form.Group as={Col} controlId="formGridSupervisorNo">
-                <Form.Label>Supervisor Number</Form.Label>
+                      </div>
+                      )}
+                      />
+                    </Form.Group> */}
+                    
+                    {/* <Form.Group as={Col} controlId="formGridSupervisorNo">
+                    <Form.Label>Supervisor Number</Form.Label>
+                    <Form.Control
+                    placeholder="Supervisor Number"
+                    name="supervisor_no"
+                    value={formData.supervisor_no}
+                    onChange={handleChange}
+                    />
+                  </Form.Group> */}
+                  <Form.Group as={Col} controlId="formGridManagerDate">
+                  <Form.Label>Manager Date</Form.Label>
                 <Form.Control
-                  placeholder="Supervisor Number"
-                  name="supervisor_no"
-                  value={formData.supervisor_no}
-                  onChange={handleChange}
+                type="date"
+                name="manager_date"
+                value={formData.manager_date}
+                onChange={handleChange}
                 />
-              </Form.Group> */}
-              <Form.Group as={Col} controlId="formGridManagerDate">
-                <Form.Label>Manager Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  name="manager_date"
-                  value={formData.manager_date}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Row>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
-        </div>
-      </div>
-    </>
+                </Form.Group>
+                </Row>
+                
+                <Button variant="primary" type="submit">
+                Submit
+                </Button>
+                </Form>
+                </div>
+                </div>
+                </div>
+                </>
   );
 }
 
